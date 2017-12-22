@@ -1,0 +1,439 @@
+- trigger: hasMany
+  description: Sequelize hasMany
+  scope: javascript
+  mTime: 1506393521146
+  text: |
+        hasMany(${1:model}, {
+            foreignKey: '${2:foreignKey}'
+        })
+
+- trigger: belongsToMany
+  description: sequelize belongsToMany
+  scope: javascript
+  mTime: 1506393515913
+  text: |
+        belongsToMany(${1:model}, {\r
+            through: ${2:model},\r
+            foreignKey: '${3:foreignKey}'\r
+        })
+
+- trigger: hasone
+  description: sequelize hasone
+  scope: javascript
+  mTime: 1507022536707
+  text: |
+        hasOne(${1:model}, {\r
+            foreignKey: "${2:foreignKey}"\r
+        })
+
+- trigger: base_url
+  description: add base_url()
+  scope: _any
+  mTime: 1507013701282
+  text: |
+        <?php echo base_url() ?>
+
+- trigger: echo_php
+  description: echo php
+  scope: _any
+  mTime: 1507021096763
+  text: |
+        <?php echo ${1}; ?>
+
+- trigger: tame_controller
+  description: tame base controller
+  scope: _any
+  mTime: 1507114963113
+  text: |
+        <?php\r
+        defined('BASEPATH') OR exit('No direct script access allowed');\r
+        \r
+        class ${1:controller} extends CI_Controller {\r
+        \r
+            public function _remap($method)\r
+            {\r
+                if(isset($_SERVER['HTTP_X_REQUESTED_WITH']))\r
+                    $ajax = ($_SERVER['HTTP_X_REQUESTED_WITH']==='XMLHttpRequest')? true : false;\r
+                else\r
+                    $ajax = false;\r
+                if($ajax){\r
+                    /*if($this->uri->total_segments()>1){\r
+                        $this->show($this->uri->segment(2));\r
+                    }*/\r
+                }\r
+                else{\r
+        \t\t\t$this->load->view('base/base_layout');\r
+                }\r
+            }\r
+        \r
+        \tpublic function index($parameter1=null)\r
+        \t{\r
+                if($parameter1==null){\r
+                    $parameter1 = '';\r
+                }\r
+                $data = array('identifier' => $parameter1);\r
+        \t\t$this->load->view(${2:'base/base_layout'}, $data);\r
+        \t}\r
+        }\r
+        
+
+- scope: _any
+  trigger: getJSON
+  description: jquery get json
+  mTime: 1513683569786
+  text: |
+        getJSON("${1:url}", {${2}}).done(function(json){
+            ${3:$basename::capitalize}
+        })
+
+- trigger: ci_controller
+  scope: _any
+  mTime: 1513754139153
+  text: |
+        <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');\r
+        \r
+        class ${1:$basename::capitalize} extends CI_Controller {\r
+        \r
+        \tfunction ${1:$basename::capitalize}(){\r
+        \t\tparent::__construct();\r
+        \t\t$this->load->model(array('${2:$basename}_model'));\t\r
+        \t}\r
+        \t\r
+        }\r
+        ?>
+
+- trigger: ci_model
+  scope: _any
+  mTime: 1513756617757
+  text: |
+        <?php \r
+        \r
+        class ${1:$basename::capitalize} extends CI_Model\r
+        {\r
+        \r
+        \tfunction ${1:$basename::capitalize}()\r
+        \t{\r
+        \t\tparent::__construct();\r
+        \t\t$this->db = $this->load->database("${1:database}", true);\r
+        \t}\r
+        }\r
+        ?>
+
+- scope: _any
+  trigger: <j-table
+  mTime: 1513754897774
+  text: |
+        <j-table id="${1:id}">
+            [["${2:field}"]]
+        </j-table>
+
+- trigger: <j-pagination
+  scope: _any
+  mTime: 1513754420547
+  text: |
+        <j-pagination></j-pagination>
+
+- trigger: <j-loader
+  scope: _any
+  mTime: 1513754415916
+  text: |
+        <j-loader src="${1}"></j-loader>
+
+- trigger: <j-combofield
+  scope: _any
+  mTime: 1513754928987
+  text: |
+        <j-combofield id="${1:id}">${2:label}\r
+        \t<j-table>\r
+        \t\t[\r
+        \t\t[ "${3field}"]\r
+            ]\r
+        \t</j-table>\r
+        </j-combofield><br/>
+
+- trigger: <j-passwordfield
+  scope: _any
+  mTime: 1513754904541
+  text: |
+        <j-passwordfield id="${1:id}">${2}</j-passwordfield>
+
+- trigger: <j-numberField
+  scope: _any
+  mTime: 1513754911974
+  text: |
+        <j-numberField id="${1:id}">${2}</j-numberField>
+
+- scope: _any
+  trigger: <j-checkbox
+  mTime: 1513754935681
+  text: |
+        <j-checkbox id="${1:id}">${2}</j-checkbox>
+
+- trigger: <j-custom
+  scope: _any
+  mTime: 1513754607838
+  text: |
+        <j-custom target="${1:0}">\r
+        \tfunction(record){\r
+        \t    ${2}\r
+        \t\treturn record[0];\r
+        \t}\r
+        </j-custom>
+
+- scope: _any
+  trigger: <j-drop
+  mTime: 1513754638450
+  text: |
+        <j-drop target="${1:0}" onclick="${2:drop}"></j-drop>
+
+- trigger: <j-custom-header
+  scope: _any
+  mTime: 1513754677211
+  text: |
+        <j-custom-header>[{${1}}]</j-custom-header>
+
+- scope: _any
+  trigger: <j-table-inplace-form
+  mTime: 1513754831646
+  text: |
+        <j-table-inplace-form target="${1:#table}" clicktarget="${2:td}">
+
+- trigger: <j-textfield
+  scope: _any
+  mTime: 1513754876512
+  text: |
+        <j-textfield id="${1:id}">${2}</j-textfield>
+
+- trigger: <j-datefield
+  scope: _any
+  mTime: 1513754974923
+  text: |
+        <j-datefield id="${1:id}">${2}</j-datefield>
+
+- trigger: <j-textarea
+  scope: _any
+  mTime: 1513755008968
+  text: |
+        <j-textarea id="${1:id}">${2}</j-textarea>
+
+- trigger: ajax_get
+  scope: _any
+  mTime: 1513926784815
+  text: |
+        $.ajax({\r
+        \turl: '${1}',\r
+        \ttype: 'GET',\r
+        \tdata: {${2}},\r
+        \tdataType: '${3:json}',\r
+        \tsuccess: function(data) {\r
+        \t\t${4}\r
+        \t},\r
+        \terror: function(xhr, status, error) {\r
+        \t    ${5}\r
+        \t},\r
+        \tbeforeSend: function setHeader(xhr) {\r
+        \t\t${6}\r
+        \t}\r
+        });
+
+- trigger: token
+  scope: _any
+  mTime: 1513926558109
+  text: |
+        xhr.setRequestHeader('x-access-token', Cookies.get('token'));
+
+- trigger: ajax_put
+  scope: _any
+  mTime: 1513926797813
+  text: |
+        $.ajax({\r
+        \turl: '${1}',\r
+        \ttype: 'PUT',\r
+        \tdata: {${2}},\r
+        \tdataType: '${3:json}',\r
+        \tsuccess: function(data) {\r
+        \t\t${4}\r
+        \t},\r
+        \terror: function(xhr, status, error) {\r
+        \t    ${5}\r
+        \t},\r
+        \tbeforeSend: function setHeader(xhr) {\r
+        \t\t${6}\r
+        \t}\r
+        });
+
+- trigger: ajax_post
+  scope: _any
+  mTime: 1513926792118
+  text: |
+        $.ajax({\r
+        \turl: '${1}',\r
+        \ttype: 'POST',\r
+        \tdata: {${2}},\r
+        \tdataType: '${3:json}',\r
+        \tsuccess: function(data) {\r
+        \t\t${4}\r
+        \t},\r
+        \terror: function(xhr, status, error) {\r
+        \t    ${5}\r
+        \t},\r
+        \tbeforeSend: function setHeader(xhr) {\r
+        \t\t${6}\r
+        \t}\r
+        });
+
+- trigger: ajax_delete
+  scope: _any
+  mTime: 1513926764181
+  text: |
+        $.ajax({\r
+        \turl: '${1}',\r
+        \ttype: 'DELETE',\r
+        \tdata: {${2}},\r
+        \tdataType: '${3:json}',\r
+        \tsuccess: function(data) {\r
+        \t\t${4}\r
+        \t},\r
+        \terror: function(xhr, status, error) {\r
+        \t    ${5}\r
+        \t},\r
+        \tbeforeSend: function setHeader(xhr) {\r
+        \t\t${6}\r
+        \t}\r
+        });
+
+- trigger: ci_query_controller
+  scope: php
+  mTime: 1513752912654
+  text: |
+        $result = $this->db->query("${1:query}");
+
+- trigger: ci_get_data_controller
+  description: ci controller get data
+  scope: php
+  mTime: 1513752954033
+  text: |
+        function get_data_${1}(){\r
+        \t$data=$this->{$2:$basename}_model->get_data();\r
+        \techo json_encode(array(\r
+        \t\t'sEcho'=>$_REQUEST['sEcho'],\r
+        \t\t'aaData'=>$data['data'],\r
+        \t\t'iTotalRecords'=>$data['total'],\r
+        \t\t'iTotalDisplayRecords'=>$_REQUEST['iDisplayLength']\r
+        \t));\r
+        }
+
+- trigger: ci_get_data_model
+  scope: php
+  mTime: 1513752961692
+  text: |
+        function get_data_${1}(){
+            $result = $this->db->query("select COUNT(*) OVER () as ci_count * from ${2:table} order by ${3:id} OFFSET '".$_REQUEST['iDisplayStart']."' rows fetch next '".$_REQUEST['iDisplayLength']."' rows only");
+            $result = $result -> result_array();
+            $total = 0;
+            foreach($result as $key => $value){
+                $return['data'][]=array($value['${4}']);
+                $return['total] = $value['ci_count'];
+            }
+            return $return;
+        }
+
+- trigger: ci_query_model
+  scope: php
+  mTime: 1513752944658
+  text: |
+        function select_query($query=null){\r
+        \tif(!$query) return null;\r
+        \treturn $this->db->query($query)->result_array();\r
+        }
+
+- trigger: ci_insert_data_model
+  scope: php
+  mTime: 1513753283332
+  text: |
+        function insert_${1}(){\r
+        \t$query="\r
+        \t\tinsert into ${2:table}(\r
+        \t\t\t${3}\r
+        \t\t) values (\r
+        \t\t\t${4}\r
+        \t\t)\r
+        \t";\r
+        \t$result = $this->db->query($query);\r
+        \t\r
+        \treturn $this->db->insert_id();\r
+        }\t
+
+- scope: php
+  trigger: ci_insert_data_controller
+  mTime: 1513756634022
+  text: |
+        function insert_${1}(){\r
+        \tif ($_REQUEST['is_edit']==0){\r
+        \t\t$query\t= "select * from ${2:table} where ${3:name}='".$_REQUEST['${4:name}']."'";\r
+        \t\t$result\t= $this->${5:$basename::capitalize}->select_query($query);\r
+        \t\tif (count($result)==0){\r
+        \t\t\t$id = $this->${5:$basename::capitalize}->insert_${1}();\r
+        \t\t\techo json_encode(array(\r
+        \t\t\t\t'status'\t=> $id > -1 ? 1 : 0,\r
+        \t\t\t\t'message'\t=> $id > -1 ? 'Insert Success' : 'Insert Failed'\r
+        \t\t\t));\r
+        \t\t}else{\r
+        \t\t\techo json_encode(array(\r
+        \t\t\t\t'status'\t=> 0,\r
+        \t\t\t\t'message'\t=> 'Data Already Exists !'\r
+        \t\t\t));\r
+        \t\t}\r
+        \t}else{\r
+        \t\t$query\t= "select * from ${2:table} where ${6:id}<>'".$_REQUEST['${7:id}']."' and ${3:name}='".$_REQUEST['${4:name}']."'";\r
+        \t\t$result\t= $this->${5:$basename::capitalize}_model->select_query($query);\r
+        \t\tif (count($result)==0){\r
+        \t\t\t$id = $this->${5:$basename::capitalize}_model->update_${1}();\r
+        \t\t\techo json_encode(array(\r
+        \t\t\t\t'status'\t=> $id > -1 ? 1 : 0,\r
+        \t\t\t\t'message'\t=> $id > -1 ? 'Update Success' : 'Update Failed'\r
+        \t\t\t));\r
+        \t\t}else{\r
+        \t\t\techo json_encode(array(\r
+        \t\t\t\t'status'\t=> 0,\r
+        \t\t\t\t'message'\t=> 'Data Already Exists !'\r
+        \t\t\t));\r
+        \t\t}\r
+        \t}\r
+        }
+
+- trigger: $_REQUEST
+  scope: php
+  mTime: 1513756117066
+  text: |
+        $_REQUEST['${1}']
+
+- trigger: <table
+  scope: html
+  description: table
+  mTime: 1513671406732
+  text: |
+        <table>
+            <thead>
+            </thead>
+            <tbody>
+                ${1}
+            </tbody>
+        </table>
+
+- trigger: <td
+  description: td
+  scope: html
+  mTime: 1513671427583
+  text: |
+        <td>${1}</td>
+
+- trigger: <script
+  description: script
+  scope: html
+  mTime: 1513671502467
+  text: |
+        <script>
+            ${1}
+        </script>
+
